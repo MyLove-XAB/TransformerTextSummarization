@@ -70,11 +70,11 @@ def train(transformer, data_iter, lr, num_epochs, vocab, ctx):
     for epoch in range(num_epochs):
         l_sum = 0.0
         for i, data in enumerate(data_iter):
-            X, Y, label, X_valid_len, Y_valid_len = data
+            X, Y, label, X_valid_len, Y_valid_len = data # X: Encoder inputs; Y: Decoder inputs
             # X = X.as_in_context(ctx)
             # Y = Y.as_in_context(ctx)
             # label = label.as_in_context(ctx)
-            gpu_Xs = gutils.split_and_load(X, ctx, even_split=False)
+            gpu_Xs = gutils.split_and_load(X, ctx, even_split=False) # 分到不同的显卡上训练
             gpu_Ys = gutils.split_and_load(Y, ctx, even_split=False)
             gpu_labels = gutils.split_and_load(label, ctx, even_split=False)
 
